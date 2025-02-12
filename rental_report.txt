@@ -1,0 +1,7 @@
+========== RENTAL REPORT ==========
+Booking ID: B001
+Customer: John Doe
+Car: Toyota Corolla
+Total Cost: $150.00
+Late Return Penalty: $0.00
+------------------------------
