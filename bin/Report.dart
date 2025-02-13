@@ -3,10 +3,8 @@ import 'dart:io';
 import 'Booking.dart';
 
 class Report{
-  String Reportid;
   Booking booking;
-
-  Report(this.Reportid,this.booking);
+  Report(this.booking);
   void generateReport() {
     File reportFile = File('rental_report.txt');
     StringBuffer buffer = StringBuffer();

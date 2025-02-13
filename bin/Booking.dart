@@ -1,7 +1,7 @@
 import 'Car.dart';
 import 'Customer.dart';
 class Booking {
-  String bookingId;
+  String bookingId ;
   Customer customer;
   Car car;
   DateTime startDate;
@@ -12,7 +12,7 @@ class Booking {
   double totalCost = 0;
   bool isReturned = false;
 
-  Booking(this.bookingId, this.customer, this.car, this.startDate, this.rentalDays)
+  Booking(this.bookingId,this.customer, this.car, this.startDate, this.rentalDays)
       : endDate = startDate.add(Duration(days: rentalDays));
   void calculateTotalCost() {
     int lateDays = returnDate != null ? returnDate!.difference(endDate).inDays : 0;
@@ -23,7 +23,7 @@ class Booking {
   void displayBookingDetails() {
     calculateTotalCost();
     print("Booking ID: $bookingId");
-    print("Customer: ${customer.name}");
+    print("Customer: ${customer.id}");
     print("Car: ${car.model}");
     print("Start Date: $startDate");
     print("End Date: $endDate");

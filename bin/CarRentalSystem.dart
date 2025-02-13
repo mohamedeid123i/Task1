@@ -31,8 +31,7 @@ class CarRentalSystem {
     }
   }
 
-  void returnCar(String bookingId) {
-    var booking = bookings.firstWhere((b) => b.bookingId == bookingId);
+  void returnCar(Booking booking) {
     if (!booking.isReturned) {
       booking.isReturned = true;
       booking.returnDate = DateTime.now();

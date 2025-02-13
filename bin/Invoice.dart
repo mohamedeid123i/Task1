@@ -2,11 +2,9 @@ import 'Booking.dart';
 class Invoice {
   String invoiceId;
   Booking booking;
-  double totalAmount;
-  double? additionalFees;
   DateTime issuedDate;
 
-  Invoice(this.invoiceId, this.booking, this.totalAmount)
+  Invoice(this.invoiceId, this.booking,)
       : issuedDate = DateTime.now();
 
   void generateInvoice() {
@@ -16,10 +14,8 @@ class Invoice {
     print("Car: ${booking.car.model}");
     print("Rental Period: ${booking.rentalDays} days");
     print("Base Rental Cost: \$${booking.car.basePrice}");
-    if (additionalFees != null) {
-      print("Additional Fees: \$${booking.car.lateReturnPenalty}");
-    }
-    print("Total Amount: \$${(totalAmount + (additionalFees ?? 0))}");
+    print("Additional Fees: \$${booking.car.lateReturnPenalty}");
+    print("Total Amount: \$${(booking.totalCost)}");
     print("Issued Date: $issuedDate");
   }
 }

@@ -1,6 +1,35 @@
+import 'dart:io';
 import 'dart:math';
 import 'Customer.dart';
-import 'package:args/args.dart';
+import 'CarRentalSystem.dart';
+import 'Report.dart';
+import 'Car.dart';
+import 'Booking.dart';
+import 'Invoice.dart';
+ bool ispalindrome(int x){
+   int d = int.parse(x.toString().split('').reversed.join());
+   if(d == x) return true;
+   return false;
+ }
+
+ List remove(List<int>s,int val){
+   s.removeWhere((element) => element == val);
+   return s;
+ }
+
+ int length_of_the_last_word(String m){
+   List b = m.split(" ");
+   return b.last.length;
+ }
+
+ int Summation_Max_Min(List<int> n){
+   n.sort();
+   return n.first + n.last;
+ }
+
+int findUnique(List<int> nums) {
+  return nums.reduce((a, b) => a ^ b);
+}
 void main() {
   CarRentalSystem system = CarRentalSystem();
 
@@ -8,32 +37,85 @@ void main() {
   system.addCar(SportsCar("C002", "Ferrari 488"));
   system.addCar(ElectricCar("C003", "Tesla Model S"));
 
-  Customer customer1 = Customer("CU001", "John Doe", "1234567890", "john@example.com", "123 Main St");
-  customer1.register(system);
+  while (true) {
+    print("\n==== Car Rental System ====");
+    print("1. Register Customer");
+    print("2. Display Available Cars");
+    print("3. Create Booking");
+    print("4. View Customer Info");
+    print("5. Create Invoice");
+    print("6. Return Car");
+    print("7. Exit");
+    stdout.write("Choose an option: ");
+    String bookingId;
+    String customerId;
+    String carId;
 
-  Booking booking1 = Booking("B001", customer1, system.cars[0], DateTime.now(), 3);
-  system.createBooking(booking1);
+    String? choice = stdin.readLineSync();
 
-  Invoice invoice1 = Invoice("I001", booking1, booking1.cost);
-  invoice1.generateInvoice();
+    switch (choice) {
+      case "1":
+        stdout.write("\nEnter your ID: ");
+        String id = stdin.readLineSync()!;
+        stdout.write("Enter your Name: ");
+        String name = stdin.readLineSync()!;
+        stdout.write("Enter your Phone: ");
+        String phone = stdin.readLineSync()!;
+        stdout.write("Enter your Email: ");
+        String email = stdin.readLineSync()!;
+        stdout.write("Enter your Address: ");
+        String address = stdin.readLineSync()!;
+        Customer customer= Customer(id, name, phone,email,address);
+        customer.register(system);
+        break;
 
-  system.returnCar("B001");
-  system!.generateReport();
+      case "2":
+        system.displayAvailableCars();
+        break;
+
+      case "3":
+        stdout.write("\nEnter Booking ID: ");
+         bookingId = stdin.readLineSync()!;
+        stdout.write("\nEnter Customer ID: ");
+         customerId = stdin.readLineSync()!;
+        Customer customer = system.customers.firstWhere((c) => c.id == customerId);
+        stdout.write("Enter Car ID: ");
+         carId = stdin.readLineSync()!;
+        Car car = system.cars.firstWhere((c) => c.id == carId);
+        stdout.write("Enter Number of Days: ");
+        int days = int.parse(stdin.readLineSync()!);
+        Booking booking = Booking( bookingId,customer, car, DateTime.now(), days);
+        system.createBooking(booking);
+        break;
+
+      case "4":
+        stdout.write("\nEnter Customer ID: ");
+         customerId = stdin.readLineSync()!;
+        Customer customer = system.customers.firstWhere((c) => c.id == customerId);
+          customer.displayCustomerInfo();
+        break;
+      case "5" :
+        stdout.write("Enter Booking ID: ");
+        bookingId = stdin.readLineSync()!;
+        Booking booking = system.bookings.firstWhere((b) => b.bookingId == bookingId);
+        stdout.write("Enter Invoice ID: ");
+        String invoiceId = stdin.readLineSync()!;
+        Invoice invoice = Invoice(invoiceId, booking);
+        invoice.generateInvoice();
+        break;
+      case "6" :
+        stdout.write("Enter Booking ID: ");
+        bookingId = stdin.readLineSync()!;
+        Booking booking = system.bookings.firstWhere((b) => b.bookingId == bookingId);
+        system.returnCar(booking);
+        Report report = Report(booking);
+        report.generateReport();
+      case "7":
+        print("\nExiting... Thank you for using the Car Rental System!\n");
+        return;
+
+      default:
+        print("\nInvalid choice! Please try again.\n");
+    }
+  }
 }
-
-/*void main() {
-  String a = "dfgd gfdg jjjggg";
-  List b = a.split(" ");
-  print(b.last.length);
-  int m = 12345;
-  int d = int.parse(m.toString().split('').reversed.join());
-  if(d == m) print("YES");
-  else print("NO");
-  List n = [1,2,3,4,5,5,6,5,2];
-  n.sort();
-  int j = n.first + n.last;
-  print(j);
-  n.removeWhere((element) => element == 5);
-  n.reduce((a,b) => a^b);
-  print(n);
-}*/
