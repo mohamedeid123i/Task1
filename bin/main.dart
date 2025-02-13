@@ -55,15 +55,15 @@ void main() {
 
     switch (choice) {
       case "1":
-        stdout.write("\nEnter your ID: ");
+        print("\nEnter your ID: ");
         String id = stdin.readLineSync()!;
-        stdout.write("Enter your Name: ");
+        print("Enter your Name: ");
         String name = stdin.readLineSync()!;
-        stdout.write("Enter your Phone: ");
+        print("Enter your Phone: ");
         String phone = stdin.readLineSync()!;
-        stdout.write("Enter your Email: ");
+        print("Enter your Email: ");
         String email = stdin.readLineSync()!;
-        stdout.write("Enter your Address: ");
+        print("Enter your Address: ");
         String address = stdin.readLineSync()!;
         Customer customer= Customer(id, name, phone,email,address);
         customer.register(system);
@@ -74,37 +74,37 @@ void main() {
         break;
 
       case "3":
-        stdout.write("\nEnter Booking ID: ");
-         bookingId = stdin.readLineSync()!;
-        stdout.write("\nEnter Customer ID: ");
-         customerId = stdin.readLineSync()!;
+        print("\nEnter Booking ID: ");
+        bookingId = stdin.readLineSync()!;
+        print("\nEnter Customer ID: ");
+        customerId = stdin.readLineSync()!;
         Customer customer = system.customers.firstWhere((c) => c.id == customerId);
-        stdout.write("Enter Car ID: ");
-         carId = stdin.readLineSync()!;
+        print("Enter Car ID: ");
+        carId = stdin.readLineSync()!;
         Car car = system.cars.firstWhere((c) => c.id == carId);
-        stdout.write("Enter Number of Days: ");
+        print("Enter Number of Days: ");
         int days = int.parse(stdin.readLineSync()!);
         Booking booking = Booking( bookingId,customer, car, DateTime.now(), days);
         system.createBooking(booking);
         break;
 
       case "4":
-        stdout.write("\nEnter Customer ID: ");
-         customerId = stdin.readLineSync()!;
+        print("\nEnter Customer ID: ");
+        customerId = stdin.readLineSync()!;
         Customer customer = system.customers.firstWhere((c) => c.id == customerId);
-          customer.displayCustomerInfo();
+        customer.displayCustomerInfo();
         break;
       case "5" :
-        stdout.write("Enter Booking ID: ");
+        print("Enter Booking ID: ");
         bookingId = stdin.readLineSync()!;
         Booking booking = system.bookings.firstWhere((b) => b.bookingId == bookingId);
-        stdout.write("Enter Invoice ID: ");
+        print("Enter Invoice ID: ");
         String invoiceId = stdin.readLineSync()!;
         Invoice invoice = Invoice(invoiceId, booking);
         invoice.generateInvoice();
         break;
       case "6" :
-        stdout.write("Enter Booking ID: ");
+        print("Enter Booking ID: ");
         bookingId = stdin.readLineSync()!;
         Booking booking = system.bookings.firstWhere((b) => b.bookingId == bookingId);
         system.returnCar(booking);
